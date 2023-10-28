@@ -1,8 +1,6 @@
 package dev.vishal.adminservice.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +15,6 @@ public class User extends BaseModel{
     private String password;
     private Date createdAt;
 
-    @OneToOne(cascade = {jakarta.persistence.CascadeType.PERSIST}) // one to one cardinality
+    @OneToOne // one to one cardinality
     private Role role;
 }

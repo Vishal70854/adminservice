@@ -14,6 +14,7 @@ import java.util.Date;
 @Setter
 public class Complaint extends BaseModel{
     private String name;
+    private String email;
     private String description;
 
     @ManyToOne  // many to one cardinality between user and complaint

@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterComplaintDto {
+public class GetComplaintDetailsDto {
+    private Long id;
     private String name;
     private String email;
     private String description;
-
 }

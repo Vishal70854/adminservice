@@ -1,13 +1,11 @@
 package dev.vishal.adminservice.controllers;
 
-import dev.vishal.adminservice.dtos.LoginRequestDto;
-import dev.vishal.adminservice.dtos.RegisterComplaintDto;
-import dev.vishal.adminservice.dtos.UserRequestDto;
+import dev.vishal.adminservice.dtos.*;
+import dev.vishal.adminservice.models.Complaint;
 import dev.vishal.adminservice.services.AdminService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController // indicates spring that this special class will contain all api endpoints
 @RequestMapping("/auth")
@@ -27,8 +25,24 @@ public class AdminController {
     public String login(@RequestBody LoginRequestDto loginRequestDto){
         return adminService.login(loginRequestDto);
     }
+    // CRUD operations for complaint
     @PostMapping("/raiseComplaint")
     public String registerComplaint(@RequestBody RegisterComplaintDto request){
         return adminService.registerComplaint(request);
+    }
+
+    @GetMapping("/getAllComplaintDetails/{email}")
+    public List<GetComplaintDetailsDto> getAllComplaintDetails(@PathVariable("email") String email){
+        return adminService.getAllComplaintDetails(email);
+    }
+
+    @PostMapping("/updateComplaint")
+    public Complaint updateComplaint(@RequestBody UpdateComplaintDto complaintDetailsDto){
+        return adminService.updateComplaint(complaintDetailsDto);
+    }
+
+    @GetMapping("deleteComplaint/{id}")
+    public String deleteComplaint(@PathVariable("id") Long id){
+        return adminService.deleteComplaint(id);
     }
 }

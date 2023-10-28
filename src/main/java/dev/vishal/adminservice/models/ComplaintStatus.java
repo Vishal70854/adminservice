@@ -4,5 +4,6 @@ public enum ComplaintStatus {
     NEW,
     INPROGRESS,
     WITHDRAWN,
-    CANCELLED
+    CANCELLED,
+    COMPLETED
 }

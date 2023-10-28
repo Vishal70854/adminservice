@@ -10,7 +10,6 @@ import static ch.qos.logback.core.joran.spi.ConsoleTarget.findByName;
 
 @Repository  // tells spring to create a repository for contacting with db
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByName(String name);
 
     Optional<User> findByEmail(String email);
 }
