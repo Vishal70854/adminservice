@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,6 +17,6 @@ public class User extends BaseModel{
     private String password;
     private Date createdAt;
 
-    @OneToOne // one to one cardinality
-    private Role role;
+    @ManyToMany // many to many cardinality
+    private List<Role> roles = new ArrayList<>();
 }

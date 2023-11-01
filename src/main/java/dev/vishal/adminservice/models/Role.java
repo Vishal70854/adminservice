@@ -2,6 +2,7 @@ package dev.vishal.adminservice.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,4 +11,6 @@ import lombok.Setter;
 @Setter
 public class Role extends BaseModel{
     private String role;
+    private RoleType roleType;
+    // enum of roleType
 }

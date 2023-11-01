@@ -10,5 +10,4 @@ public class UpdateComplaintDto {
     private String name;
     private String email;
     private String description;
-    private String complaintStatus;
 }

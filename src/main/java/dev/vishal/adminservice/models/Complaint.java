@@ -19,9 +19,10 @@ public class Complaint extends BaseModel{
 
     @ManyToOne  // many to one cardinality between user and complaint
     private User createdBy;
+    private Date createdAt;
 
     @Enumerated(EnumType.ORDINAL) // enum reference
     private ComplaintStatus complaintStatus;
 
-    private Date createdAt;
+
 }

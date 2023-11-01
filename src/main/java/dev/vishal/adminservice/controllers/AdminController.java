@@ -13,6 +13,7 @@ public class AdminController {
     private AdminService adminService;
 
     public AdminController(AdminService adminService){
+
         this.adminService = adminService;
     }
 
@@ -45,4 +46,10 @@ public class AdminController {
     public String deleteComplaint(@PathVariable("id") Long id){
         return adminService.deleteComplaint(id);
     }
+
+    @GetMapping("/retrieveComplaint/{status}")
+    public List<Complaint> retrieveComplaints(@PathVariable("status") String status){
+        return adminService.retrieveAllComplaints(status);
+    }
+
 }

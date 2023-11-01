@@ -34,23 +34,26 @@ public class AdminService {
     @Transactional
     public String signup(UserRequestDto userRequestDto){
         Optional<User> userOptional = userRepository.findByEmail(userRequestDto.getEmail());
-        Optional<Role> roleOptional = roleRepository.findById(2L); // getting error here
+
         if (!userOptional.isEmpty()){
             return "User Already Exists.";
         }
 
-        if (roleOptional.isEmpty())
-            throw new RuntimeException("Role is not defined.");
-
         User user = new User(); // created new user object
-        Role role =  roleOptional.get(); // get the role object from db
-        role.setRole("customer");
         // add the fields of user in User table
         user.setName(userRequestDto.getName());
         user.setPassword(userRequestDto.getPassword());
-        user.setRole(role);
+//        user.setRoles(userRequestDto.getRoles());
         user.setCreatedAt(new Date());
         user.setEmail(userRequestDto.getEmail());
+
+        // set the list of roles
+        List<Role> roles = new ArrayList<>();
+        for (String roleObj : userRequestDto.getRoles()){
+            Optional<Role> role = roleRepository.findByRole(roleObj);
+            roles.add(role.get());
+        }
+        user.setRoles(roles);
         userRepository.save(user); // save the user object in db
 
         return "User created Successfully";
@@ -141,6 +144,20 @@ public class AdminService {
         complaintRepository.deleteById(complaint.getId());
 
         return "Complaint deleted Successfully";
+    }
+
+    public List<Complaint> retrieveAllComplaints(String status){
+        List<Complaint> complaintOptional = complaintRepository.findByComplaintStatus(ComplaintStatus.valueOf(status));
+
+        if (complaintOptional.size() == 0){
+            throw new RuntimeException("No Complaints found with the given status");
+        }
+//        for (Complaint complaint : complaintOptional){
+//            System.out.println(complaint);
+//        }
+        return complaintOptional;
+//        System.out.println(complaintOptional);
+//        return "Retrieve Complaints";
     }
 
 }
