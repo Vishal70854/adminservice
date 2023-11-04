@@ -88,7 +88,15 @@ public class AdminService {
         complaint.setComplaintStatus(ComplaintStatus.NEW);
         complaint.setDescription(request.getDescription());
         complaint.setCreatedBy(user); // set user at createdBy
-        complaint.setCreatedAt(new Date());
+
+        // assign complain to OFFICER role user
+        Optional<User> assignedUserOptional = userRepository.findByRolesToAssign();
+        if (assignedUserOptional.isEmpty()){
+            throw new RuntimeException("User doesn't exists");
+        }
+        User assignedUser = assignedUserOptional.get();
+        System.out.println("assigned user is :" + assignedUser.getId());
+        complaint.setAssignedTo(assignedUser);
 
         complaintRepository.save(complaint); // save the complaint in db
 
@@ -125,7 +133,11 @@ public class AdminService {
         Complaint complaint = complaintOptional.get();
         complaint.setName(getComplaintDetailsDto.getName());
         complaint.setDescription(getComplaintDetailsDto.getDescription());
-        complaint.setCreatedAt(new Date());
+
+//        // assign complain to OFFICER role user
+//        User assignedUser = userRepository.findByRolesToAssign();
+//        System.out.println("assigned user is :" +assignedUser.getId());
+//        complaint.setAssignedTo(assignedUser);
 
         complaintRepository.save(complaint); // update and save complaint obj in db
 
